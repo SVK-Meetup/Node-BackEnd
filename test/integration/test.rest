@@ -1,0 +1,36 @@
+### Reg
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+	"name": "Test Elek",
+	"email": "test@localhost",
+	"comment": "anything",
+	"organization": "Test"
+}
+
+### Get credentials from test-server
+GET http://localhost:8080/jwt
+
+### Get attendee from test-server
+GET http://localhost:8080/admin/user/email
+Content-Type: application/json
+
+{
+	"email": "test@localhost"
+}
+
+
+### Delete all attendees
+DELETE http://localhost:8080/admin/attendees
+
+### Delete one attendee with the given _id
+DELETE http://localhost:8080/admin/attendee/
+Content-Type: application/json
+
+{
+	"_id": "5fddb2541a77a03254c984d7"
+}
+
+### 404
+POST http://localhost:8080/anythingelse
