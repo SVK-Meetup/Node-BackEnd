@@ -1,6 +1,7 @@
 /*
  ? Verifies from a 3rd party OAuth API weather the user is permitted to do an action then signes a JWT for them.
  * needs process.config.JWT_TTL JWT time of validity
+ * needs process.config.JWT_MAX_TTL JWT maximum time of validity
  * needs process.env.JWT_SECRET JWT secret needed to sign and verify the JWTs
  */
 
@@ -22,7 +23,7 @@ module.exports = objectRepository => {
 			exp: Date.now() + process.config.JWT_TTL
 		}
 
-		if(prev.maxLife) {
+		if (prev.maxLife) {
 			payload.maxLife = prev.maxLife
 		} else {
 			payload.maxLife = Date.now() + process.config.JWT_MAX_TTL
@@ -78,7 +79,7 @@ module.exports = objectRepository => {
 		 */
 		authorize: (req, res) => {
 			const api = apiDictionary.get(req.params.api)
-			if(!api)
+			if (!api)
 				return res.redirect("/signin")
 			res.redirect(`${api.authURL}?response_type=code&client_id=${api.clientID}&scope=${api.scopes.join(' ')}`)
 		},
@@ -94,7 +95,7 @@ module.exports = objectRepository => {
 				console.error(err)
 				res.redirect("/signin")
 			}
-			if(!api) return res.redirect("/signin")
+			if (!api) return res.redirect("/signin")
 			const clientIDAndSecret = Buffer.from(`${api.clientID}:${api.clientSecret}`).toString("base64")
 			fetch(api.tokenURL, {
 				method: "POST",
@@ -105,13 +106,13 @@ module.exports = objectRepository => {
 				body: `grant_type=authorization_code&code=${req.query.code}`
 			})
 				.then(res => res.json())
-				.then(({access_token}) => {
-					if(!access_token) return res.redirect("/signin")
+				.then(({ access_token }) => {
+					if (!access_token) return res.redirect("/signin")
 					fetch(`${api.apiURL}?access_token=${access_token}`)
 						.then(res => res.json())
 						.then(api.extractor)
 						.then(isAllowed => {
-							if(!isAllowed)
+							if (!isAllowed)
 								throw new Error("No permission")
 
 							res.cookie("SVK-JWT", makeJWT(), {
@@ -158,7 +159,7 @@ module.exports = objectRepository => {
 				req.cookies["SVK-JWT"],
 				process.env.JWT_SECRET,
 				(err, tokenPayload) => {
-					if(err ||
+					if (err ||
 						tokenPayload?.exp < Date.now() ||
 						tokenPayload?.maxLife < Date.now()) {
 						return res.redirect("/signin")
@@ -179,4 +180,3 @@ module.exports = objectRepository => {
 		}
 	}
 }
-
