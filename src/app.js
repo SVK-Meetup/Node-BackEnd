@@ -1,25 +1,28 @@
 require("./config")
 
-const express = require("express")
-const favicon = require("serve-favicon")
-const compression = require("compression")
-const logger = require("morgan")
-const cookieParser = require("cookie-parser")
 const path = require("path")
+const express = require("express")
 const app = express()
+const Sentry = require("@sentry/node")
+Sentry.init({
+	dsn: process.env.SENTRY_DSN
+})
 
 app.disable("x-powered-by")
 
-app.use(favicon(path.join(__dirname, "..", "dist", "favicon.ico")))
-app.use(compression())
-app.use(logger(process.env.LOGGER))
-app.use(cookieParser())
+
+app.use(require("serve-favicon")(path.join(__dirname, "..", "dist", "favicon.ico")))
+// Logging
+if (process.env.NODE_ENV !== "production") {
+	app.use(require("morgan")(process.env.LOGGER))
+}
+app.use(require("compression")())
+app.use(require("cookie-parser")())
 app.use(express.json())
 app.use(require("./routes"))
-app.use((err, req, res, next) => {
-/* 	console.error(err) */
-	return res.send({message: err.message, stack: err.stack})
-})
+app.use(require("./middleware/errorHandler"))
+
+
 
 app.listen(process.env.PORT, () =>
 	console.log(
