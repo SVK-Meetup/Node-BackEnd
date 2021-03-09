@@ -1,23 +1,21 @@
 {
 	"name": "svkssr",
 	"version": "1.0.0",
-	"description": "SVK meetup Back end & REST API",
+	"description": "SVK meetup back-end",
 	"main": "app.js",
 	"scripts": {
 		"dev": "nodemon src/app.js",
 		"test": "mocha || true",
-		"test-server": "nodemon test/integration/test-server.js"
+		"test-server": "nodemon test/integration/test-server.js",
+		"bld-dckr-img": "docker build -t wingsmc/svk:1.0 .",
+		"run-dckr-img": "docker run -p 5000:8080 _id_"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/WingSMC/SVK_SSR.git"
+		"url": "https://github.com/SVK-Meetup/Node-BackEnd.git"
 	},
 	"author": "Gergely Dremák",
 	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/WingSMC/SVK_SSR/issues"
-	},
-	"homepage": "https://github.com/WingSMC/SVK_SSR#readme",
 	"dependencies": {
 		"@sentry/node": "^6.2.1",
 		"@sentry/tracing": "^6.2.1",
