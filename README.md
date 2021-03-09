@@ -1,22 +1,16 @@
 # Setup
 
-- A .sample-env alapján egy .env fájlt létre kell hozni
-- A `test` mappa tartalma szükségtelen így meg lehet tőle szabadulni
+A .sample-env alapján egy .env fájlt létre kell hozni, akár a .sample-env-et is át lehet nevezni
 
-## Szükséges
+## Galéria
 
-- [Node.js](https://nodejs.org/en/)
-- pnpm / npm
+A gallery mappában legyenek tetszőlegesen elnevezett almappák (a név nem számít)
+Ezekben kell létrehozni egy-egy ".metadata" nevű fájlt aminek ilyen nagyon komplikált tartalma van:
 
-## Jó, ha van
-
-- git
-
-## A Node és az npm telepítése után opcionális a pnpm telepítése
-
-```sh
-# E helyett lehet szimplán az npm-et használni a pnpm-ek helyett
-npm i -g pnpm
+```env
+name=<Az album címe>
+date=<dátum YYYY.HH.NN formátumban>
+index=<index kép címe relatív útvonallal>
 ```
 
 ## Build készítés
