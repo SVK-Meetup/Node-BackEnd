@@ -4,11 +4,10 @@
 	"description": "SVK meetup back-end",
 	"main": "app.js",
 	"scripts": {
+		"start": "node src/app.js",
 		"dev": "nodemon src/app.js",
 		"test": "mocha || true",
-		"test-server": "nodemon test/integration/test-server.js",
-		"bld-dckr-img": "docker build -t wingsmc/svk:1.0 .",
-		"run-dckr-img": "docker run -p 5000:8080 _id_"
+		"test-server": "nodemon test/integration/test-server.js"
 	},
 	"repository": {
 		"type": "git",

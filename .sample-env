@@ -1,21 +1,23 @@
-#### development | production ####
 NODE_ENV=production
 
 #### General ####
 LOCATION=http://localhost
 PORT=8080
-# morgan logging mode
-LOGGER=dev
+
+# Morgan logging mode (csak dev)
+LOGGER=common
+# Sentry error logging DSN
+SENTRY_DSN=https://7d6ca8f56eb9403888290602682f5e1d@o525087.ingest.sentry.io/5638578
 
 #### DB ####
 # MongoDB connection string
-DB_CONNSTRING=
+DB_CONNSTRING=mongodb+srv://<user>:<password>@svk.tgvjn.mongodb.net/SVK?retryWrites=true&w=majority
 
 #### OAuth ####
 AUTHSCH_AUTH_URL=https://auth.sch.bme.hu/site/login
 AUTHSCH_TOKEN_URL=https://auth.sch.bme.hu/oauth2/token
 AUTHSCH_API_URL=https://auth.sch.bme.hu/api/profile
-AUTHSCH_CLIENT_ID=45396586808719227539
+AUTHSCH_CLIENT_ID=
 AUTHSCH_SECRET=
 
 #### JWT ####
@@ -31,4 +33,4 @@ JWT_SECRET=
 # 106 Kir-Dev
 # 18 SSSL
 # 64 SVK
-ALLOWED_IDS=106
+ALLOWED_IDS=64
