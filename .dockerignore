@@ -3,7 +3,9 @@
 
 README.md
 pnpm-lock.yaml
+Dockerfile
 
 .gitignore
 .git
 .sample-env
+.dockerignore
