@@ -8,6 +8,7 @@ process.config.JWT_MAX_TTL = parseInt(process.env.JWT_MAX_TTL)
 process.config.EVENT = require("./default-event-options")
 require("./gallery") // should be before the DB config
 
+
 /*
 * setup Authorization
 */
@@ -20,9 +21,8 @@ Auth.use("authsch",	new Auth.API(
 	process.env.AUTHSCH_CLIENT_ID,
 	process.env.AUTHSCH_SECRET,
 	["eduPersonEntitlement"],
-	data => {
-		return data.eduPersonEntitlement?.some(el => process.config.ALLOWED_IDS.includes(el.id))
-	}
+	({ eduPersonEntitlement }) =>
+		eduPersonEntitlement?.some(el => process.config.ALLOWED_IDS.includes(el.id))
 ))
 
 

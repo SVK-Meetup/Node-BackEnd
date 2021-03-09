@@ -15,26 +15,17 @@ module.exports = objectRepository => {
 	const fetch = requireOption(objectRepository, "node-fetch")
 
 	/**
-	 * @description Makes a JWT with the .env given expiry time
+	 * @description Makes a JWT with the .env given expiry times
 	 * @returns {string} A JWT string
 	 */
-	const makeJWT = (prev = {}) => {
-		const payload = {
-			exp: Date.now() + process.config.JWT_TTL
-		}
-
-		if (prev.maxLife) {
-			payload.maxLife = prev.maxLife
-		} else {
-			payload.maxLife = Date.now() + process.config.JWT_MAX_TTL
-		}
-
-		return jwt.sign(payload, process.env.JWT_SECRET)
-	}
+	const makeJWT = (prev = {}) => jwt.sign({
+		exp: Date.now() + process.config.JWT_TTL,
+		maxLife: prev.maxLife ?? Date.now() + process.config.JWT_MAX_TTL
+	}, process.env.JWT_SECRET)
 
 	return {
 		/**
-		 * @description Makes a JWT with the .env given expiry time
+		 * @description Makes a JWT with the .env given expiry times
 		 * @returns {string} A JWT string
 		 */
 		makeJWT,
@@ -89,12 +80,9 @@ module.exports = objectRepository => {
 		 * @param {Request} req
 		 * @param {Response} res
 		 */
-		establish: (req, res) => {
+		establish: (req, res, next) => {
 			const api = apiDictionary.get(req.params.api)
-			const fetchErrorHandler = err => {
-				console.error(err)
-				res.redirect("/signin")
-			}
+			const fetchErrorHandler = err => next(err)
 			if (!api) return res.redirect("/signin")
 			const clientIDAndSecret = Buffer.from(`${api.clientID}:${api.clientSecret}`).toString("base64")
 			fetch(api.tokenURL, {
@@ -113,7 +101,7 @@ module.exports = objectRepository => {
 						.then(api.extractor)
 						.then(isAllowed => {
 							if (!isAllowed)
-								throw new Error("No permission")
+								throw new Error("Nem vagy az engedélyezett körök tagja")
 
 							res.cookie("SVK-JWT", makeJWT(), {
 								maxAge: process.config.JWT_TTL,
@@ -137,15 +125,15 @@ module.exports = objectRepository => {
 		 * @param {Response} res
 		 */
 		logout: (req, res) => {
-			res.cookie("SVK-JWT", null, {
+			res.cookie("SVK-JWT", "", {
 				maxAge: 0,
 				httpOnly: true,
 				sameSite: "Strict"
 			})
-			res.cookie("SVK-STATUS", null, {
+			res.cookie("SVK-STATUS", "", {
 				maxAge: 0
 			})
-			return res.redirect("/")
+			return res.sendStatus(200)
 		},
 
 		/**
@@ -162,7 +150,7 @@ module.exports = objectRepository => {
 					if (err ||
 						tokenPayload?.exp < Date.now() ||
 						tokenPayload?.maxLife < Date.now()) {
-						return res.redirect("/signin")
+						return res.status(403).send({ message: "Jelentkezz be újra!" })
 					}
 
 					res.cookie("SVK-JWT", makeJWT(tokenPayload), {
