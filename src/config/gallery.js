@@ -3,7 +3,7 @@ const path = require('path')
 
 const dirs = fs.readdirSync('gallery')
 const gallery = []
-for(const dir of dirs) {
+for (const dir of dirs) {
 	const dirObject = {}
 	// Read .metadata into dirObject
 	const data = fs.readFileSync(path.join('gallery', dir, '.metadata')).toString()
@@ -15,7 +15,7 @@ for(const dir of dirs) {
 	dirObject.images = fs.readdirSync(path.join('gallery', dir))
 		.map(image => `/gallery/${dir}/${image}`)
 	// Remove .metadata
-	dirObject.images.splice(0,1)
+	dirObject.images.splice(0, 1)
 	// Add path to index
 	dirObject.index = `/gallery/${dir}/${dirObject.index}`
 	// commit

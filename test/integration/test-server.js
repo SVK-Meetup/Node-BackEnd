@@ -9,8 +9,8 @@ const routes = require("../../src/routes")
  * While using these, comment the 404 fallback route in "routes"
  */
 
-routes.get("/admin/user/email", ({body: { email }}, res) => {
-	Attendee.findOne({email}, (err, attendee) => {
+routes.get("/admin/user/email", ({ body: { email } }, res) => {
+	Attendee.findOne({ email }, (err, attendee) => {
 		res.send(attendee)
 	})
 })

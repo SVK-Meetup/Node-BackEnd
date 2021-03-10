@@ -14,7 +14,7 @@ describe("Register middleware", () => {
 		})
 
 		mw({
-			body:{}
+			body: {}
 		}, {
 			status(code) {
 				expect(code).to.equal(403)
@@ -38,7 +38,7 @@ describe("Register middleware", () => {
 		})
 
 		mw({
-			body:{}
+			body: {}
 		}, {
 			status(code) {
 				expect(code).to.equal(406)
@@ -63,7 +63,7 @@ describe("Register middleware", () => {
 		})
 
 		mw({
-			body:{
+			body: {
 				name: "validName",
 				organization: "validOrganization",
 				comment: "validComment"
@@ -91,7 +91,7 @@ describe("Register middleware", () => {
 		})
 
 		mw({
-			body:{
+			body: {
 				name: "validName",
 				organization: "validOrganization",
 				comment: "validComment"

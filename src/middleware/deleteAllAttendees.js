@@ -4,7 +4,7 @@ module.exports = objectRepository => {
 
 	return (req, res, next) => {
 		Attendee.deleteMany({}, err => {
-			if(err)	return next(err)
+			if (err) return next(err)
 			return res.send({ message: "Purgálva." })
 		})
 	}

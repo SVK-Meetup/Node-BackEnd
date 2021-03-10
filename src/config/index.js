@@ -14,7 +14,7 @@ require("./gallery") // should be before the DB config
 */
 const Auth = require("../middleware/auth")
 
-Auth.use("authsch",	new Auth.API(
+Auth.use("authsch", new Auth.API(
 	process.env.AUTHSCH_AUTH_URL,
 	process.env.AUTHSCH_TOKEN_URL,
 	process.env.AUTHSCH_API_URL,
