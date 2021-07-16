@@ -1,11 +1,11 @@
-/node_modules
-/test
+node_modules
+test
+.git
 
 README.md
 pnpm-lock.yaml
 Dockerfile
 
 .gitignore
-.git
 .sample-env
 .dockerignore
