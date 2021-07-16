@@ -11,7 +11,7 @@ module.exports = {
 	partners: [
 		{
 			name: "Kir-Dev",
-			logo: "https://kir-dev.sch.bme.hu/img/kirdev.png",
+			logo: "https://res.cloudinary.com/wingsmc/image/upload/v1615303057/kirdev_rs3rro.jpg",
 			website: "https://kir-dev.sch.bme.hu"
 		}
 	],
