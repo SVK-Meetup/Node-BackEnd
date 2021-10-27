@@ -17,11 +17,11 @@ routes.get("/admin/user/email", ({ body: { email } }, res) => {
 
 routes.get("/jwt", (req, res) => {
 	res.cookie("SVK-JWT", makeJWT(), {
-		maxAge: process.config.JWT_TTL,
+		maxAge: global.config.JWT_TTL,
 		httpOnly: true
 	})
 	res.cookie("SVK-STATUS", 1, {
-		maxAge: process.config.JWT_TTL
+		maxAge: global.config.JWT_TTL
 	})
 
 	return res.sendStatus(200)

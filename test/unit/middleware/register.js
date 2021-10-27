@@ -3,7 +3,7 @@ const { expect } = require("chai")
 describe("Register middleware", () => {
 
 	it("Should call next with Error \"Nincs regisztrációs időszak.\" and set status to 403.", done => {
-		process.config.EVENT.regActive = false
+		global.config.EVENT.regActive = false
 		const mw = require("../../../src/middleware/register")({
 			validateEmail: e => false,
 			Attendee: class {
@@ -27,7 +27,7 @@ describe("Register middleware", () => {
 	})
 
 	it("Should call next with Error \"A bevitt értékek nem megfelelőek.\" and set status to 406.", done => {
-		process.config.EVENT.regActive = true
+		global.config.EVENT.regActive = true
 		const mw = require("../../../src/middleware/register")({
 			validateEmail: e => true,
 			Attendee: class {
@@ -52,7 +52,7 @@ describe("Register middleware", () => {
 	// itt még lehetne ellaborálni a validáción
 
 	it("Should call save on new Attendee then get duplicate error.", done => {
-		process.config.EVENT.regActive = true
+		global.config.EVENT.regActive = true
 		const mw = require("../../../src/middleware/register")({
 			validateEmail: e => true,
 			Attendee: class {
@@ -80,7 +80,7 @@ describe("Register middleware", () => {
 	})
 
 	it("Should call save on new Attendee.", done => {
-		process.config.EVENT.regActive = true
+		global.config.EVENT.regActive = true
 		const mw = require("../../../src/middleware/register")({
 			validateEmail: e => true,
 			Attendee: class {

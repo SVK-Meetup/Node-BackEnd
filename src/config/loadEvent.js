@@ -4,20 +4,17 @@ const setEvent = require("../util/setEvent")
 module.exports = () => {
 	SVKEvent.findOne({}, (err, event) => {
 		if (err) {
-			console.error("db.open:", err)
-			return
+			return console.error("db.open:", err)
 		}
 
 		if (event) {
 			setEvent(event)
-			console.log("db.open: Fetched event options from db.")
-			return
+			return console.log("db.open: Fetched event options from db.")
 		}
 
-		new SVKEvent(process.config.EVENT).save((err, prod) => {
+		SVKEvent.create(global.config.EVENT, (err, prod) => {
 			if (err) {
-				console.error("db.open.save: ", err)
-				return
+				return console.error("db.open.save: ", err)
 			}
 			setEvent(prod)
 			console.log("db.open.save: Event added to empty collection.")

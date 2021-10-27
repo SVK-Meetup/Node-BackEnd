@@ -4,7 +4,7 @@ module.exports = objectRepository => {
 	const validateEmail = requireOption(objectRepository, "validateEmail")
 
 	return ({ body: { name, email, organization, comment } }, res, next) => {
-		if (!process.config.EVENT.regActive) {
+		if (!global.config.EVENT.regActive) {
 			res.status(403)
 			return next(new Error("Nincs regisztrációs időszak."))
 		}

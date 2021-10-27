@@ -23,4 +23,4 @@ for (const dir of dirs) {
 }
 // Order by date in descending order
 gallery.sort((f1, f2) => new Date(f1.date) < new Date(f2.date) ? 1 : -1)
-process.config.GALLERY = gallery
+global.config.GALLERY = gallery

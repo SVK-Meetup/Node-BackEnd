@@ -1,7 +1,7 @@
 /*
  ? Verifies from a 3rd party OAuth API weather the user is permitted to do an action then signes a JWT for them.
- * needs process.config.JWT_TTL JWT time of validity
- * needs process.config.JWT_MAX_TTL JWT maximum time of validity
+ * needs global.config.JWT_TTL JWT time of validity
+ * needs global.config.JWT_MAX_TTL JWT maximum time of validity
  * needs process.env.JWT_SECRET JWT secret needed to sign and verify the JWTs
  */
 
@@ -19,8 +19,8 @@ module.exports = objectRepository => {
 	 * @returns {string} A JWT string
 	 */
 	const makeJWT = (prev = {}) => jwt.sign({
-		exp: Date.now() + process.config.JWT_TTL,
-		maxLife: prev.maxLife ?? Date.now() + process.config.JWT_MAX_TTL
+		exp: Date.now() + global.config.JWT_TTL,
+		maxLife: prev.maxLife ?? Date.now() + global.config.JWT_MAX_TTL
 	}, process.env.JWT_SECRET)
 
 	return {
@@ -104,12 +104,12 @@ module.exports = objectRepository => {
 								throw new Error("Nem vagy az engedélyezett körök tagja")
 
 							res.cookie("SVK-JWT", makeJWT(), {
-								maxAge: process.config.JWT_TTL,
+								maxAge: global.config.JWT_TTL,
 								httpOnly: true,
 								sameSite: "Strict"
 							})
 							res.cookie("SVK-STATUS", 1, {
-								maxAge: process.config.JWT_TTL
+								maxAge: global.config.JWT_TTL
 							})
 
 							return res.redirect("/admin/page")
@@ -154,12 +154,12 @@ module.exports = objectRepository => {
 					}
 
 					res.cookie("SVK-JWT", makeJWT(tokenPayload), {
-						maxAge: process.config.JWT_TTL,
+						maxAge: global.config.JWT_TTL,
 						httpOnly: true,
 						sameSite: "Strict"
 					})
 					res.cookie("SVK-STATUS", 1, {
-						maxAge: process.config.JWT_TTL
+						maxAge: global.config.JWT_TTL
 					})
 
 					return next()
