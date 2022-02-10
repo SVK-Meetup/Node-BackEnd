@@ -1,9 +1,21 @@
 const mongoose = require("mongoose")
 
-mongoose.connect(process.env.DB_CONNSTRING, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false
-}).catch(console.error)
-mongoose.connection.on("error", console.error.bind(console, "connection error:"))
-mongoose.connection.once("open", require("./loadEvent"))
+mongoose.Promise = global.Promise;
+
+mongoose.connect(
+	process.env.DB_CONNSTRING,
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+		useCreateIndex: true,
+	},
+	(err) => {
+		if (err) {
+			console.error("Error during MongoDB connection: " + err)
+			return
+		}
+		console.log("Connected to DB.")
+		require("./loadEvent")()
+	}
+)

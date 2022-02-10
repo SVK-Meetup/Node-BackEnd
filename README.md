@@ -1,6 +1,6 @@
 # Setup
 
-A .sample-env alapján egy .env fájlt létre kell hozni, akár a .sample-env-et is át lehet nevezni
+A sample.env alapján egy .env fájlt létre kell hozni, akár a .sample-env-et is át lehet nevezni
 
 ## Galéria
 
@@ -9,7 +9,7 @@ Ezekben kell létrehozni egy-egy ".metadata" nevű fájlt aminek ilyen nagyon ko
 
 ```env
 name=<Az album címe>
-date=<dátum YYYY.HH.NN formátumban>
+date=<dátum YYYY.MM.DD formátumban>
 index=<index kép címe relatív útvonallal>
 ```
 
