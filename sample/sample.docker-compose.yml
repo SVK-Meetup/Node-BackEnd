@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  web:
+    container_name: meetup_web
+    image: "harbor.sch.bme.hu/org-svk/svkmeetup:latest"
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    ports:
+      - "80:8080/tcp"
+    environment:
+      NODE_ENV: production
+      DB_CONNSTRING: mongodb+srv://SVK:<PASSWORD>@wings-m001.crfft.mongodb.net/SVK?retryWrites=true&w=majority
+      # mongodb+srv://7YdpGkTaGAYt:<PASSWORD>@mongo-svc.org-svk/SVK?retryWrites=true&w=majority
+      ALLOWED_IDS: 64
+      JWT_SECRET: 0dcf302297351b7fbe90e6e09e403d58789f99186f992f0b3da6c27008997a5976d529c32f2bfb28312617374fcdac159501d3f1211087b2f58a6b6d09c369e7
+      AUTHSCH_CLIENT_ID: 10145673101596291562
+      AUTHSCH_SECRET: <secret>
