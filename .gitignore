@@ -104,3 +104,7 @@ gallery/
 
 # Lockfiles
 pnpm-lock.yaml
+
+# Docker-compose
+docker-compose.yml
+docker-compose.yaml
