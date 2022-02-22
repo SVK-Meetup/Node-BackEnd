@@ -17,31 +17,29 @@ index=<index kép címe relatív útvonallal>
 
 Ha production buildet akarsz készíteni állítsd a root mappa .env fájljában a `NODE_ENV`-et `production`-re.
 
-Csinálunk egy docker image-et
+### Harbor.Sch
 
 ```sh
-docker build -t wingsmc/svk:1.0 .
+docker build -t harbor.sch.bme.hu/org-svk/svkmeetup:latest .
+docker push harbor.sch.bme.hu/org-svk/svkmeetup:latest
 ```
 
-A build a végén kiírja az image nevét egy hexadecimális számként
-
-Exportájuk egy .tar fájlba
+### Tar-ba exportálás
 
 ```sh
-docker save -o ./svk_server.tar wingsmc/svk:1.0
+docker save -o ./svk_server.tar harbor.sch.bme.hu/org-svk/svkmeetup:latest
 ```
 
-Ezt a .tar fájlt kéne a KSZK-nak elküldeni.
 
 ## Futtatás Docker-ben
 
-A futtató eszköz 5000-es portját rendeli a virtuális gép 8080-portjához
+A futtató eszköz 5000-es portját rendeli a container 8080-portjához
 
 ```sh
-docker run -p 5000:8080 wingsmc/svk:1.0
+docker run -p 5000:8080 harbor.sch.bme.hu/org-svk/svkmeetup:latest
 ```
 
-Importálás .tar-ból
+### Importálás .tar-ból
 
 ```sh
 docker load -i <path to image tar file>/svk_server.tar
