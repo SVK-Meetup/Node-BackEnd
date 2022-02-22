@@ -30,7 +30,6 @@ docker push harbor.sch.bme.hu/org-svk/svkmeetup:latest
 docker save -o ./svk_server.tar harbor.sch.bme.hu/org-svk/svkmeetup:latest
 ```
 
-
 ## Futtatás Docker-ben
 
 A futtató eszköz 5000-es portját rendeli a container 8080-portjához
