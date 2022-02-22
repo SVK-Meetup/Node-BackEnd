@@ -4,7 +4,8 @@ const setEvent = require("../util/setEvent")
 module.exports = () => {
 	SVKEvent.findOne({}, (err, event) => {
 		if (err) {
-			return console.error("db.open:", err)
+			console.error("db.open:", err)
+			process.exit(1)
 		}
 
 		if (event) {

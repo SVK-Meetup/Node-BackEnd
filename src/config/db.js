@@ -13,7 +13,7 @@ mongoose.connect(
 	(err) => {
 		if (err) {
 			console.error("Error during MongoDB connection: " + err)
-			return
+			process.exit(1)
 		}
 		console.log("Connected to DB.")
 		require("./loadEvent")()
