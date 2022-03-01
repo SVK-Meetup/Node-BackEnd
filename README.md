@@ -24,6 +24,10 @@ docker build -t harbor.sch.bme.hu/org-svk/svkmeetup:latest .
 docker push harbor.sch.bme.hu/org-svk/svkmeetup:latest
 ```
 
+### Kubernetes
+
+[Dashboard](https://dashboard.k8s-01.sch.bme.hu/)
+
 ### Tar-ba exportálás
 
 ```sh
