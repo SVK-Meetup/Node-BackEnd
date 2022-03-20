@@ -1,5 +1,5 @@
 /*
- ? Verifies from a 3rd party OAuth API weather the user is permitted to do an action then signes a JWT for them.
+ ? Verifies from a 3rd party OAuth API whether the user is permitted to do an action then signes a JWT for them.
  * needs global.config.JWT_TTL JWT time of validity
  * needs global.config.JWT_MAX_TTL JWT maximum time of validity
  * needs process.env.JWT_SECRET JWT secret needed to sign and verify the JWTs
