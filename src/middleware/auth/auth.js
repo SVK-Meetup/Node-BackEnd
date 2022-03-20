@@ -82,7 +82,6 @@ module.exports = objectRepository => {
 		 */
 		establish: (req, res, next) => {
 			const api = apiDictionary.get(req.params.api)
-			const fetchErrorHandler = err => next(err)
 			if (!api) return res.redirect("/signin")
 			const clientIDAndSecret = Buffer.from(`${api.clientID}:${api.clientSecret}`).toString("base64")
 			fetch(api.tokenURL, {
@@ -114,9 +113,9 @@ module.exports = objectRepository => {
 
 							return res.redirect("/admin/page")
 						})
-						.catch(fetchErrorHandler)
+						.catch(next)
 				})
-				.catch(fetchErrorHandler)
+				.catch(next)
 		},
 
 		/**
